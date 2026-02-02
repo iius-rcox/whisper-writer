@@ -8,6 +8,8 @@
 
 **Update (2024-05-28):** I've just merged in a major rewrite of WhisperWriter! We've migrated from using `tkinter` to using `PyQt5` for the UI, added a new settings window for configuration, a new continuous recording mode, support for a local API, and more! Please be patient as I work out any bugs that may have been introduced in the process. If you encounter any problems, please [open a new issue](https://github.com/savbell/whisper-writer/issues)!
 
+**Performance Update:** The app now starts instantly with lazy model loading, settings apply without restart, and `hold_to_record` mode is more responsive. Default model changed to `tiny.en` for faster transcription.
+
 WhisperWriter is a small speech-to-text app that uses [OpenAI's Whisper model](https://openai.com/research/whisper) to auto-transcribe recordings from a user's microphone to the active window.
 
 Once started, the script runs in the background and waits for a keyboard shortcut to be pressed (`ctrl+shift+space` by default). When the shortcut is pressed, the app starts recording from your microphone. There are four recording modes to choose from:
@@ -16,7 +18,7 @@ Once started, the script runs in the background and waits for a keyboard shortcu
 - `press_to_toggle` Recording will stop when the keyboard shortcut is pressed again. Recording will not start until the keyboard shortcut is pressed again.
 - `hold_to_record` Recording will continue until the keyboard shortcut is released. Recording will not start until the keyboard shortcut is held down again.
 
-You can change the keyboard shortcut (`activation_key`) and recording mode in the [Configuration Options](#configuration-options). While recording and transcribing, a small status window is displayed that shows the current stage of the process (but this can be turned off). Once the transcription is complete, the transcribed text will be automatically written to the active window.
+You can change the keyboard shortcut (`activation_key`) and recording mode in the [Configuration Options](#configuration-options). While recording and transcribing, a small status window is displayed that shows the current stage of the process (but this can be turned off). Press `Escape` to cancel a recording in progress. Once the transcription is complete, the transcribed text will be automatically written to the active window.
 
 The transcription can either be done locally through the [faster-whisper Python package](https://github.com/SYSTRAN/faster-whisper/) or through a request to [OpenAI's API](https://platform.openai.com/docs/guides/speech-to-text). By default, the app will use a local model, but you can change this in the [Configuration Options](#configuration-options). If you choose to use the API, you will need to either provide your OpenAI API key or change the base URL endpoint.
 
@@ -124,7 +126,7 @@ WhisperWriter uses a configuration file to customize its behaviour. To set up th
   - `api_key`: Your API key for the OpenAI API. Required for non-local API usage. (Default: `null`)
 
 - `local`: Configuration options for the local Whisper model.
-  - `model`: The model to use for transcription. The larger models provide better accuracy but are slower. See [available models and languages](https://github.com/openai/whisper?tab=readme-ov-file#available-models-and-languages). (Default: `base`)
+  - `model`: The model to use for transcription. The larger models provide better accuracy but are slower. See [available models and languages](https://github.com/openai/whisper?tab=readme-ov-file#available-models-and-languages). (Default: `tiny.en`)
   - `device`: The device to run the local Whisper model on. Use `cuda` for NVIDIA GPUs, `cpu` for CPU-only processing, or `auto` to let the system automatically choose the best available device. (Default: `auto`)
   - `compute_type`: The compute type to use for the local Whisper model. [More information on quantization here](https://opennmt.net/CTranslate2/quantization.html). (Default: `default`)
   - `condition_on_previous_text`: Set to `true` to use the previously transcribed text as a prompt for the next transcription request. (Default: `true`)
@@ -172,6 +174,16 @@ Below are features not currently planned:
 - [ ] Pipelining audio files
 
 Implemented features can be found in the [CHANGELOG](CHANGELOG.md).
+
+## Development
+
+Architecture documentation is available in the `codemaps/` directory:
+- `architecture.md` - Overall system design and data flow
+- `backend.md` - Core modules and threading model
+- `frontend.md` - PyQt5 UI components
+- `data.md` - Configuration schema and data structures
+
+See `CLAUDE.md` for AI assistant guidance when working with this codebase.
 
 ## Contributing
 
