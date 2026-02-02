@@ -38,14 +38,14 @@ model_options:
   # Configuration options for the faster-whisper model
   local:
     model:
-      value: base
+      value: tiny.en
       type: str
       description: "The model to use for transcription. The larger models provide better accuracy but are slower."
       options:
-        - base
-        - base.en
-        - tiny
         - tiny.en
+        - tiny
+        - base.en
+        - base
         - small
         - small.en
         - medium

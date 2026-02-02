@@ -71,6 +71,16 @@ class StatusWindow(BaseWindow):
         self.closeSignal.emit()
         super().closeEvent(event)
 
+    def keyPressEvent(self, event):
+        """
+        Handle key press events. Escape key cancels the recording.
+        """
+        if event.key() == Qt.Key_Escape:
+            self.closeSignal.emit()
+            self.close()
+        else:
+            super().keyPressEvent(event)
+
     @pyqtSlot(str)
     def updateStatus(self, status):
         """
