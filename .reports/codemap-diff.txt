@@ -1,0 +1,39 @@
+Codemap Diff Report
+Generated: 2026-02-02
+
+Previous Version: None (initial generation)
+Current Version: 2026-02-02
+
+Change Summary:
+- architecture.md: NEW (0% -> 100%)
+- frontend.md: NEW (0% -> 100%)
+- backend.md: NEW (0% -> 100%)
+- data.md: NEW (0% -> 100%)
+
+Total Change: 100% (initial generation)
+
+Files Analyzed:
+- run.py (9 lines)
+- src/main.py (189 lines)
+- src/key_listener.py (963 lines)
+- src/result_thread.py (186 lines)
+- src/transcription.py (120 lines)
+- src/input_simulation.py (119 lines)
+- src/utils.py (143 lines)
+- src/ui/base_window.py (118 lines)
+- src/ui/main_window.py (64 lines)
+- src/ui/settings_window.py (301 lines)
+- src/ui/status_window.py (102 lines)
+- src/config_schema.yaml (168 lines)
+
+Total Source Lines: 2,482
+
+Architecture Summary:
+- Type: Desktop application (PyQt5)
+- Language: Python
+- Primary Function: Speech-to-text transcription
+- Transcription Backends: faster-whisper (local), OpenAI API
+- Input Backends: evdev (Linux), pynput (cross-platform)
+- Output Methods: pynput, ydotool, dotool
+
+Approval Required: No (initial generation, no previous version to compare)
